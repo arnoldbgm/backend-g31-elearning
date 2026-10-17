@@ -26,14 +26,22 @@ def buscar_producto(id):
 # 02. Crear una funcion llamada vender_producto, que reciba el id y la cantidad
 # Si el stock es suficiente, se debe restar la cantidad vendida al stock y
 # retornar el precio total de la venta
+
 def vender_producto(id, cantidad):
     producto_encontrado = buscar_producto(id)
 
     if cantidad > producto_encontrado["stock"]:
         print("Stock insuficiente")
-        return
+        return  # Es para señalar el fin de la ejecucion de una funcion
 
+    # Actualizacion de la nueva cantidad - Stock
     nueva_cantidad = producto_encontrado["stock"] - cantidad
+
+    # Recorrido el arreglo para actualizar el STOCK
+    for product in productos:
+        if product["id"] == id:
+            product["stock"] = nueva_cantidad
+
 
     total = producto_encontrado["precio"] * cantidad
     return total
