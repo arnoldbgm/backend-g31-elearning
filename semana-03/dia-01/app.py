@@ -1,5 +1,5 @@
 # Desde la libreria flask quiero importar la Clase Flask
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)  # Se esta creando mi servidor
 
@@ -78,5 +78,36 @@ def obtener_jugador(id):
       "msg": "Encontramos al jugador",
       "data": jugador_encontrado
    }
+
+# Tiendas Ripley
+# ripley.com/televisores?precio_mayor=1500&marca=lg
+# ? => Inicio de los parametros
+# precio_mayor=1500 => Nuestro primer parametro
+# & => Separar parametros
+# marca=lg
+
+# Crear el endoint "/buscador"
+# Donde se pueda buscar a un jugador o varios jugadores
+# de acuerdo a la posicion donde juega
+
+# Query params
+@app.route("/buscador")
+def buscador_jugadores():
+   # Para trabajar con los query params
+   # Debes de importar el request de flask
+   # solicitud
+   # from flask import request
+   # /buscador?posicion=Mediocampista
+   posicion_query = request.args.get("posicion") #Extremo
+   jugadores_filtrados = []
+   for jugador in jugadores:
+      if jugador["posicion"].lower() == posicion_query.lower():
+         jugadores_filtrados.append(jugador)
+
+   return {
+      "msg": "Resultados exitoso",
+      "data": jugadores_filtrados
+   }
+
 
 app.run() # Corra tu servidor
