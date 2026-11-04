@@ -1,0 +1,72 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+// Mundial 2026 — Base de datos mundial_futbol (v2)
+
+Table equipos {
+  id integer [primary key]
+  nombre varchar
+  confederacion varchar
+  grupo char(1)
+  ranking_fifa integer
+  clasificado boolean
+  fecha_creacion timestamp
+}
+
+Table jugadores {
+  id integer [primary key]
+  nombre varchar
+  posicion varchar
+  dorsal integer
+  activo boolean
+  fecha_nacimiento date
+  equipo_id integer [not null]
+}
+
+Table partidos {
+  id integer [primary key]
+  goles_local integer
+  goles_visitante integer
+  fase varchar
+  fecha timestamp
+  local_id integer [not null]
+  visitante_id integer [not null]
+}
+
+Table goles {
+  id integer [primary key]
+  minuto integer
+  es_penal boolean
+  partido_id integer [not null]
+  jugador_id integer [not null]
+}
+
+Table posiciones_por_grupo {
+  id integer [primary key]
+  equipo_id integer [not null]
+  grupo char(1)
+  pj integer
+  pg integer
+  pe integer
+  pp integer
+  gf integer
+  gc integer
+  puntos integer
+}
+
+// Un equipo tiene MUCHOS jugadores
+Ref: equipos.id < jugadores.equipo_id
+
+// Un equipo juega MUCHOS partidos como LOCAL
+Ref: equipos.id < partidos.local_id
+
+// Un equipo juega MUCHOS partidos como VISITANTE
+Ref: equipos.id < partidos.visitante_id
+
+// Un equipo tiene UNA fila en posiciones_por_grupo
+Ref: equipos.id < posiciones_por_grupo.equipo_id
+
+// Un partido tiene MUCHOS goles
+Ref: partidos.id < goles.partido_id
+
+// Un jugador puede meter MUCHOS goles
+Ref: jugadores.id < goles.jugador_id
