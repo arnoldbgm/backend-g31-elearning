@@ -55,7 +55,7 @@ def get_artistas():
     artistas = Artistas.query.all()
 
     # [Artistas1, Artistas2]
-    print(artistas[2].nombre)
+    # print(artistas[2].nombre)
 
     resultado_formateado = []
     for elm in artistas:
