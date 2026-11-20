@@ -13,5 +13,10 @@ db.init_app(app)
 # Ejecuccion de Flask Migrate
 migrate = Migrate(app, db)
 
+# Importacion de los modelos
+from models.clientes import ClientesModel
+from models.pedidos import PedidosModel
+from models.platos import PlatosModel
+
 if __name__ == "__main__":
    app.run(debug=True)
