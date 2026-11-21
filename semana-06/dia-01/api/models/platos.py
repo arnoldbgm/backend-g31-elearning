@@ -9,3 +9,11 @@ class PlatosModel(db.Model):
    precio:Mapped[float]=mapped_column(Float, nullable=False)
 
    __tablename__ = "platos"
+
+   def to_dic(self):
+      return {
+         "id_plato": self.id_plato,
+         "nombre": self.nombre,
+         "categoria": self.categoria,
+         "precio": self.precio
+      }

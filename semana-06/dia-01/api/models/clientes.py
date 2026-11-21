@@ -20,3 +20,11 @@ class ClientesModel(db.Model):
 
    # Para nombrar a tu tabla usas __tablename__
    __tablename__ = "clientes"
+
+   def to_dic(self):
+      return {
+         "id_cliente": self.id_cliente,
+         "nombre": self.nombre,
+         "telefono": self.telefono,
+         "direccion": self.direccion
+      }

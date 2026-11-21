@@ -56,3 +56,60 @@ class ClientesAddList(Resource):
       return {
          "msg": "Creacion exitosa"
       }, 201
+
+# Necesitamos un resource el cual permita
+# Obtener los datos de un usuario, actualizarlos y elimnar al usuario
+
+class ClienteListUpdateDelete(Resource):
+   def get(self, id_cliente):
+      cliente = ClientesModel.query.get(id_cliente)
+
+      if not cliente:
+         return {
+            "msg": "No existe el cliente buscado"
+         }, 404
+
+      return cliente.to_dic()
+   def put(self, id_cliente):
+      cliente = ClientesModel.query.get(id_cliente)
+
+      if not cliente:
+         return {
+            "msg": "No existe el cliente buscado"
+         }, 404
+
+      data = request.json
+
+      if not data:
+         return {
+            "msg": "Debes de enviar la informacion"
+         }, 400
+
+      # Aqui ya viene la actualizacion de los valores
+      if "nombre" in data:
+         cliente.nombre = data["nombre"]
+
+      if "telefono" in data:
+         cliente.telefono = data["telefono"]
+
+      if "direccion" in data:
+         cliente.direccion = data["direccion"]
+
+      db.session.commit()
+
+      return cliente.to_dic()
+
+   def delete(self, id_cliente):
+      cliente = ClientesModel.query.get(id_cliente)
+
+      if cliente is None:
+         return {
+            "msg": "No existe el cliente buscado"
+         }, 404
+
+      db.session.delete(cliente)
+      db.session.commit()
+
+      return {
+         "msg": f"Cliente con id {id_cliente} eliminado exitosamente"
+      }, 200
