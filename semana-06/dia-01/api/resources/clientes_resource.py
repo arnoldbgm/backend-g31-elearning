@@ -14,8 +14,19 @@ from db import db
 # Este es la creacion de mi controlador
 class ClientesAddList(Resource):
    def get(self):
+      clientes = ClientesModel.query.all()
+      resultado_formateado = []
+
+      for elmt in clientes:
+         formato = {
+            "nombre": elmt.nombre,
+            "telefono": elmt.telefono
+         }
+         resultado_formateado.append(formato)
+
       return {
-         "msg": "Hola desde el get"
+         "msg": "Respuesta exitosa",
+         "data": resultado_formateado
       }
 
    def post(self):
