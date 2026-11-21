@@ -14,3 +14,12 @@ class PedidosModel(db.Model):
    id_plato:Mapped[int]=mapped_column(Integer, ForeignKey("platos.id_plato"))
 
    __tablename__ = "pedidos"
+
+   def to_dic(self):
+      return {
+         "id_pedido": self.id_pedido,
+         "cantidad": self.cantidad,
+         "total": self.total,
+         "id_cliente": self.id_cliente,
+         "id_plato": self.id_plato
+      }

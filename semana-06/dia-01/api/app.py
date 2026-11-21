@@ -24,11 +24,13 @@ from models.demo import DemoModel
 # Aqui vamos a definir nuestros endpoints
 from resources.clientes_resource import ClientesAddList, ClienteListUpdateDelete
 from resources.platos_resource import PlatosAddList, PlatosListUpdateDelete
+from resources.pedidos_resource import PedidosList
 
 api.add_resource(ClientesAddList, "/api/v1/clientes")
 api.add_resource(PlatosAddList, "/api/v1/platos")
 api.add_resource(ClienteListUpdateDelete, "/api/v1/clientes/<int:id_cliente>")
 api.add_resource(PlatosListUpdateDelete, "/api/v1/platos/<int:id_plato>")
+api.add_resource(PedidosList, "/api/v1/pedidos")
 
 if __name__ == "__main__":
    app.run(debug=True)
