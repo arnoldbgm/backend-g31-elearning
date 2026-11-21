@@ -23,8 +23,10 @@ from models.demo import DemoModel
 
 # Aqui vamos a definir nuestros endpoints
 from resources.clientes_resource import ClientesAddList
+from resources.platos_resource import PlatosAddList
 
 api.add_resource(ClientesAddList, "/api/v1/clientes")
+api.add_resource(PlatosAddList, "/api/v1/platos")
 
 if __name__ == "__main__":
    app.run(debug=True)
